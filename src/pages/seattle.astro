@@ -1,0 +1,350 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Polaroid from "../components/Polaroid.astro";
+import Newsletter from "../components/Newsletter.astro";
+
+const food = [
+  { src: "/images/food-1.svg", name: "Altura", caption: "Capitol Hill, Italian tasting menu" },
+  { src: "/images/food-2.svg", name: "Marination Ma Kai", caption: "West Seattle, Hawaiian-Korean" },
+  { src: "/images/food-3.svg", name: "Salare", caption: "Ravenna, globally inspired" },
+  { src: "/images/food-4.svg", name: "Le Panier", caption: "Downtown, French bakery" },
+  { src: "/images/food-5.svg", name: "Bar Cotto", caption: "Capitol Hill, Italian small plates" },
+  { src: "/images/food-6.svg", name: "Un Bien", caption: "Ballard, Caribbean sandwiches" },
+];
+
+const things = [
+  { src: "/images/things-1.svg", name: "Kerry Park", caption: "the skyline view everyone photographs" },
+  { src: "/images/things-2.svg", name: "Chihuly Garden and Glass", caption: "worth it even in the rain" },
+  { src: "/images/things-3.svg", name: "Discovery Park", caption: "the closest thing to wilderness in city limits" },
+  { src: "/images/things-4.svg", name: "Fremont Troll", caption: "five minutes, fully worth it" },
+  { src: "/images/things-5.svg", name: "Gas Works Park", caption: "best sunset picnic spot, contested but true" },
+  { src: "/images/things-6.svg", name: "Ballard Locks", caption: "boats, sea lions, a nice slow afternoon" },
+];
+
+const events = [
+  { title: "Ballard Farmers Market", type: "Market", neighborhood: "Ballard", free: true, when: "Sundays, year-round" },
+  { title: "Capitol Hill Block Party", type: "Festival", neighborhood: "Capitol Hill", free: false, when: "Late July" },
+  { title: "Fremont Sunday Market", type: "Market", neighborhood: "Fremont", free: true, when: "Sundays" },
+  { title: "Live jazz at Tula's", type: "Live music", neighborhood: "Downtown", free: false, when: "Thursdays" },
+  { title: "Chinatown-ID Night Market", type: "Market", neighborhood: "Chinatown-ID", free: true, when: "Seasonal, monthly" },
+  { title: "Pottery class at Rain City Clay", type: "Class", neighborhood: "Georgetown", free: false, when: "Ongoing" },
+  { title: "U District Street Fair", type: "Festival", neighborhood: "U District", free: true, when: "Late May" },
+  { title: "West Seattle Art Walk", type: "Pop-up", neighborhood: "West Seattle", free: true, when: "Second Thursdays" },
+];
+
+const eventTypes = ["All", "Market", "Festival", "Live music", "Class", "Pop-up"];
+const neighborhoods = [
+  "All",
+  "Ballard",
+  "Capitol Hill",
+  "Fremont",
+  "Downtown",
+  "Chinatown-ID",
+  "Georgetown",
+  "U District",
+  "West Seattle",
+];
+
+const cations = {
+  staycation: [
+    { src: "/images/cation-stay-1.svg", title: "A no-plans Saturday in Capitol Hill", copy: "Sleep in, coffee walk, a bookstore you always mean to visit." },
+    { src: "/images/cation-stay-2.svg", title: "Spa day at Olympus", copy: "Soak, sauna, repeat. No phone allowed for four hours." },
+    { src: "/images/cation-stay-3.svg", title: "Ferry to Bainbridge and back", copy: "Costs nothing but the ticket, feels like a full trip." },
+  ],
+  daycation: [
+    { src: "/images/cation-day-1.svg", title: "Snoqualmie Falls", copy: "45 minutes out, waterfall views, lunch at the lodge." },
+    { src: "/images/cation-day-2.svg", title: "Leavenworth for the day", copy: "Bavarian village, alpine views, worth the two-hour drive." },
+    { src: "/images/cation-day-3.svg", title: "Whidbey Island loop", copy: "Ferry, small towns, a lavender farm if it's summer." },
+  ],
+  vacation: [
+    { src: "/images/cation-vac-1.svg", title: "Long weekend in Portland", copy: "Food carts, bookstores, and a much slower pace than Seattle." },
+    { src: "/images/cation-vac-2.svg", title: "A week in Olympic National Park", copy: "Rainforest, coastline, and mountains in one trip." },
+    { src: "/images/cation-vac-3.svg", title: "Ten days in Amsterdam", copy: "The full itinerary is on the Travel page." },
+  ],
+};
+---
+
+<BaseLayout
+  title="Seattle"
+  description="Food, events, things to do, and getaways in and around Seattle, updated as I find them."
+>
+  <section class="section-sm seattle-hero">
+    <div class="wrap seattle-hero-inner">
+      <span class="eyebrow"><span class="nav-dot"></span> The Seattle guide</span>
+      <h1 class="section-title">Everything I actually recommend around here.</h1>
+      <p class="section-sub">
+        Food I go back to, things worth a Saturday, and where I'm headed when I need to get out of the city
+        for a bit.
+      </p>
+    </div>
+  </section>
+
+  <section class="section seattle-tabs-section">
+    <div class="wrap">
+      <div class="tabs-container" data-tabs data-tabs-param="tab">
+        <div class="tablist" role="tablist" aria-label="Seattle content">
+          <button role="tab" data-tab="food" aria-selected="true" id="tab-food" aria-controls="panel-food">Food</button>
+          <button role="tab" data-tab="events" aria-selected="false" id="tab-events" aria-controls="panel-events">Events</button>
+          <button role="tab" data-tab="things-to-do" aria-selected="false" id="tab-things" aria-controls="panel-things">Things to do</button>
+          <button role="tab" data-tab="cations" aria-selected="false" id="tab-cations" aria-controls="panel-cations">'Cations</button>
+        </div>
+
+        <div role="tabpanel" data-tab-panel="food" id="panel-food" aria-labelledby="tab-food" class="grid grid-3 tab-panel">
+          {
+            food.map((f, i) => (
+              <Polaroid src={f.src} alt={f.name} caption={`${f.name} — ${f.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
+            ))
+          }
+        </div>
+
+        <div role="tabpanel" data-tab-panel="events" id="panel-events" aria-labelledby="tab-events" class="tab-panel" hidden>
+          <div class="events-filter-bar" data-filter-scope>
+            <div class="filter-group" data-filter-group="type">
+              <span class="filter-label">Type</span>
+              <div class="chip-row">
+                {eventTypes.map((t, i) => (
+                  <button type="button" class="chip" data-filter-value={t === "All" ? "all" : t} aria-pressed={i === 0 ? "true" : "false"}>
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div class="filter-group" data-filter-group="neighborhood">
+              <span class="filter-label">Neighborhood</span>
+              <div class="chip-row">
+                {neighborhoods.map((n, i) => (
+                  <button type="button" class="chip" data-filter-value={n === "All" ? "all" : n} aria-pressed={i === 0 ? "true" : "false"}>
+                    {n}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button type="button" class="chip" data-filter-toggle="free" aria-pressed="false">Free events only</button>
+
+            <ul class="event-list">
+              {
+                events.map((e) => (
+                  <li
+                    class="event-row"
+                    data-filterable
+                    data-type={e.type}
+                    data-neighborhood={e.neighborhood}
+                    data-free={String(e.free)}
+                  >
+                    <div>
+                      <p class="event-title">{e.title}</p>
+                      <p class="event-meta">
+                        {e.neighborhood}
+                        <span class="tag-dot" />
+                        {e.when}
+                      </p>
+                    </div>
+                    <span class="tag">{e.free ? "Free" : e.type}</span>
+                  </li>
+                ))
+              }
+              <li data-filter-empty hidden class="event-empty">No events match those filters yet. Try widening the search.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div role="tabpanel" data-tab-panel="things-to-do" id="panel-things" aria-labelledby="tab-things" class="grid grid-3 tab-panel" hidden>
+          {
+            things.map((t, i) => (
+              <Polaroid src={t.src} alt={t.name} caption={`${t.name} — ${t.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
+            ))
+          }
+        </div>
+
+        <div role="tabpanel" data-tab-panel="cations" id="panel-cations" aria-labelledby="tab-cations" class="tab-panel" hidden>
+          <div class="tabs-container cations-tabs" data-tabs data-tabs-param="cation">
+            <div class="tablist tablist-sub" role="tablist" aria-label="Getaway length">
+              <button role="tab" data-tab="staycation" aria-selected="true" id="tab-stay" aria-controls="panel-stay">Staycation</button>
+              <button role="tab" data-tab="daycation" aria-selected="false" id="tab-day" aria-controls="panel-day">Daycation</button>
+              <button role="tab" data-tab="vacation" aria-selected="false" id="tab-vac" aria-controls="panel-vac">Vacation</button>
+            </div>
+
+            <div role="tabpanel" data-tab-panel="staycation" id="panel-stay" aria-labelledby="tab-stay" class="grid grid-3 tab-panel">
+              {cations.staycation.map((c) => (
+                <div class="card cation-card">
+                  <img src={c.src} alt={c.title} loading="lazy" />
+                  <div class="cation-copy">
+                    <h3>{c.title}</h3>
+                    <p>{c.copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div role="tabpanel" data-tab-panel="daycation" id="panel-day" aria-labelledby="tab-day" class="grid grid-3 tab-panel" hidden>
+              {cations.daycation.map((c) => (
+                <div class="card cation-card">
+                  <img src={c.src} alt={c.title} loading="lazy" />
+                  <div class="cation-copy">
+                    <h3>{c.title}</h3>
+                    <p>{c.copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div role="tabpanel" data-tab-panel="vacation" id="panel-vac" aria-labelledby="tab-vac" class="grid grid-3 tab-panel" hidden>
+              {cations.vacation.map((c) => (
+                <div class="card cation-card">
+                  <img src={c.src} alt={c.title} loading="lazy" />
+                  <div class="cation-copy">
+                    <h3>{c.title}</h3>
+                    <p>{c.copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>
+
+<style>
+  .seattle-hero-inner {
+    max-width: 640px;
+  }
+
+  .tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.25rem;
+  }
+
+  .tablist button {
+    background: transparent;
+    border: 1px solid var(--charcoal);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+
+  .tablist button[aria-selected="true"] {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+
+  .tablist-sub {
+    margin-bottom: 2rem;
+  }
+
+  .cations-tabs {
+    margin-top: 1rem;
+  }
+
+  .events-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    flex: none;
+  }
+
+  .event-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .event-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+  }
+
+  .event-title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--charcoal);
+  }
+
+  .event-meta {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .event-empty {
+    padding: 1.5rem;
+    text-align: center;
+    font-style: italic;
+    font-family: var(--font-serif);
+    color: var(--charcoal);
+    opacity: 0.7;
+    list-style: none;
+  }
+
+  .cation-card {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cation-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .cation-copy {
+    padding: 1.25rem;
+  }
+
+  .cation-copy h3 {
+    font-size: 1.1rem;
+  }
+
+  .cation-copy p {
+    margin-top: 0.5rem;
+    font-size: 0.88rem;
+    opacity: 0.82;
+  }
+
+  @media (max-width: 600px) {
+    .event-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  import { initTabs } from "../scripts/tabs";
+  import { initFilters } from "../scripts/filters";
+  initTabs();
+  initFilters();
+</script>

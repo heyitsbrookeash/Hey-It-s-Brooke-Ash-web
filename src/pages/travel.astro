@@ -1,0 +1,251 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Polaroid from "../components/Polaroid.astro";
+import Newsletter from "../components/Newsletter.astro";
+
+const regions = [
+  {
+    heading: "Pacific Northwest",
+    items: [
+      { src: "/images/travel-pnw-1.svg", name: "Leavenworth", caption: "a Bavarian village two hours from home" },
+      { src: "/images/travel-pnw-2.svg", name: "Olympic National Park", caption: "rainforest, coast, and mountains in one trip" },
+      { src: "/images/travel-pnw-3.svg", name: "Portland", caption: "the food-cart trip that never disappoints" },
+    ],
+  },
+  {
+    heading: "United States",
+    items: [
+      { src: "/images/travel-us-1.svg", name: "Savannah", caption: "spanish moss and a very good long weekend" },
+      { src: "/images/travel-us-2.svg", name: "Austin", caption: "breakfast tacos, non-negotiable" },
+      { src: "/images/travel-us-3.svg", name: "Palm Springs", caption: "a January trip that fixed my whole mood" },
+    ],
+  },
+  {
+    heading: "International",
+    items: [
+      { src: "/images/travel-intl-1.svg", name: "Amsterdam", caption: "four days, mostly on a rented bike" },
+      { src: "/images/travel-intl-2.svg", name: "Lisbon", caption: "the trip I recommend to literally everyone" },
+      { src: "/images/travel-intl-3.svg", name: "Kyoto", caption: "still dreaming about this one" },
+    ],
+  },
+];
+
+const hotels = [
+  { src: "/images/hotel-1.svg", name: "The Fairmont Olympic, Seattle", verdict: "Splurge", copy: "The kind of hotel that makes a staycation feel like a real trip." },
+  { src: "/images/hotel-2.svg", name: "Ace Hotel, Portland", verdict: "Worth it", copy: "Great location, character to spare, book early." },
+  { src: "/images/hotel-3.svg", name: "A budget stay in Amsterdam", verdict: "Skip it", copy: "Fine for sleeping, not much else. I'd pay more next time." },
+  { src: "/images/hotel-4.svg", name: "Sun Ranch, Palm Springs", verdict: "Worth it", copy: "Small, quiet, a pool you'll actually use." },
+];
+
+const itineraries = [
+  { src: "/images/itinerary-1.svg", title: "A weekend in Portland", copy: "Food carts, bookstores, one perfect coffee shop." },
+  { src: "/images/itinerary-2.svg", title: "Four days in Amsterdam", copy: "Bikes, canals, and the bakery you can't skip." },
+  { src: "/images/itinerary-3.svg", title: "Three days in Savannah", copy: "Slow mornings, a lot of walking, one big dinner." },
+  { src: "/images/itinerary-4.svg", title: "A long weekend in Palm Springs", copy: "Poolside, midcentury architecture, good light." },
+];
+---
+
+<BaseLayout
+  title="Travel"
+  description="Where I've been, hotel reviews, and downloadable itineraries for weekend trips and longer getaways."
+>
+  <section class="section-sm travel-hero">
+    <div class="wrap travel-hero-inner">
+      <span class="eyebrow"><span class="nav-dot"></span> Travel</span>
+      <h1 class="section-title">Everywhere I've been, and where I'm headed next.</h1>
+      <p class="section-sub">
+        Trip reports, hotel reviews, and full itineraries, organized so you can actually use them for your
+        own next trip.
+      </p>
+    </div>
+  </section>
+
+  <section class="section been">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Where I've been</span>
+      <h2 class="section-title">A running map</h2>
+    </div>
+    <div class="wrap regions">
+      {
+        regions.map((region) => (
+          <div class="region">
+            <h3 class="region-heading">{region.heading}</h3>
+            <div class="grid grid-3">
+              {region.items.map((item, i) => (
+                <Polaroid src={item.src} alt={item.name} caption={`${item.name} — ${item.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-sm hotels" id="hotels">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Hotels &amp; reviews</span>
+      <h2 class="section-title">Was it worth it?</h2>
+    </div>
+    <div class="wrap hotel-list">
+      {
+        hotels.map((h) => (
+          <div class="hotel-row">
+            <img src={h.src} alt={h.name} loading="lazy" />
+            <div class="hotel-copy">
+              <div class="hotel-top">
+                <h3>{h.name}</h3>
+                <span class={`verdict verdict-${h.verdict.replace(" ", "-").toLowerCase()}`}>{h.verdict}</span>
+              </div>
+              <p>{h.copy}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-sm itineraries" id="itineraries">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Itineraries</span>
+      <h2 class="section-title">Download-and-go guides</h2>
+    </div>
+    <div class="wrap grid grid-2">
+      {
+        itineraries.map((it) => (
+          <a href="#" class="itinerary-card">
+            <img src={it.src} alt={it.title} loading="lazy" />
+            <div class="itinerary-copy">
+              <h3>{it.title}</h3>
+              <p>{it.copy}</p>
+              <span class="cta-link">View itinerary</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>
+
+<style>
+  .travel-hero-inner {
+    max-width: 640px;
+  }
+
+  .regions {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .region-heading {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hotel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hotel-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    padding: 1.25rem;
+  }
+
+  .hotel-row img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid var(--line);
+  }
+
+  .hotel-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hotel-top h3 {
+    font-size: 1.25rem;
+  }
+
+  .verdict {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--charcoal);
+  }
+
+  .verdict-worth-it {
+    background: var(--sage);
+    border-color: var(--sage-deep);
+  }
+
+  .verdict-skip-it {
+    background: transparent;
+    color: var(--burnt-deep);
+  }
+
+  .verdict-splurge {
+    background: var(--burnt);
+    color: var(--paper);
+    border-color: var(--burnt);
+  }
+
+  .hotel-copy p {
+    margin-top: 0.5rem;
+    opacity: 0.82;
+    font-size: 0.92rem;
+  }
+
+  .itinerary-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+  }
+
+  .itinerary-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .itinerary-copy {
+    padding: 1.5rem;
+  }
+
+  .itinerary-copy h3 {
+    font-size: 1.3rem;
+  }
+
+  .itinerary-copy p {
+    margin-top: 0.5rem;
+    opacity: 0.82;
+    font-size: 0.9rem;
+  }
+
+  .itinerary-copy .cta-link {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .hotel-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

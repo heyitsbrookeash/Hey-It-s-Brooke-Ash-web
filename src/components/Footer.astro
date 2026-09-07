@@ -1,0 +1,169 @@
+---
+import { menuGroups, socialLinks } from "../lib/nav";
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-top">
+      <a href="/" class="footer-wordmark">Hey It's <em>Brooke Ash</em></a>
+      <p class="footer-tag">A Seattle scrapbook of food, travel and the in-between.</p>
+    </div>
+
+    <div class="footer-columns">
+      {
+        menuGroups.map((group) => (
+          <div class="footer-col">
+            <p class="footer-col-heading">{group.heading}</p>
+            <ul>
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="footer-bottom">
+      <ul class="footer-social">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noreferrer noopener">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="footer-note">&copy; {new Date().getFullYear()} Hey It's Brooke Ash. Made with love (and a lot of coffee) in Seattle.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    margin-top: var(--space-section);
+  }
+
+  .footer-inner {
+    padding-block: 4rem 2.5rem;
+  }
+
+  .footer-top {
+    max-width: 32ch;
+    margin-bottom: 3rem;
+  }
+
+  .footer-wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .footer-wordmark em {
+    color: var(--sage);
+  }
+
+  .footer-tag {
+    margin-top: 0.75rem;
+    color: var(--line-on-ink);
+    opacity: 0.9;
+    font-size: 0.92rem;
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--line-on-ink);
+  }
+
+  .footer-col-heading {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .footer-col a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .footer-col a:hover {
+    opacity: 1;
+    color: var(--sage);
+  }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-social {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-social a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .footer-social a:hover {
+    opacity: 1;
+    color: var(--sage);
+  }
+
+  .footer-note {
+    font-size: 0.78rem;
+    color: var(--line-on-ink);
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .footer-columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-columns {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

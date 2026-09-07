@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Polaroid from "../components/Polaroid.astro";
+import Lightbox from "../components/Lightbox.astro";
+import TapePhoto from "../components/TapePhoto.astro";
+import Newsletter from "../components/Newsletter.astro";
+import HeroMap from "../components/HeroMap.astro";
+import HeroStamp from "../components/HeroStamp.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("journal")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestPosts = posts.slice(0, 3);
+
+const introPolaroids = [
+  { src: "/images/home-intro-1.svg", alt: "Snow dusted rooftops in Capitol Hill", caption: "first snow, first winter", tilt: 1 as const },
+  { src: "/images/home-intro-2.svg", alt: "Coffee cup on a wooden table at Fuel Coffee", caption: "sunday mornings at Fuel", tilt: 2 as const },
+  { src: "/images/home-intro-3.svg", alt: "Flower stand at Pike Place Market", caption: "market runs", tilt: 3 as const },
+];
+
+const lifeLately = [
+  { src: "/images/life-lately-1.svg", alt: "Dumplings at a Chinatown-International District restaurant", caption: "dumplings, obviously", tilt: 1 as const, tapeColor: "sage" as const },
+  { src: "/images/life-lately-2.svg", alt: "View from a Puget Sound ferry", caption: "ferry brain", tilt: 2 as const, tapeColor: "burnt" as const },
+  { src: "/images/life-lately-3.svg", alt: "New boots on a rainy Ballard sidewalk", caption: "new boots, bad idea", tilt: 3 as const, tapeColor: "sage" as const },
+  { src: "/images/life-lately-4.svg", alt: "Hydrangeas blooming in Madison Park", caption: "hydrangea season", tilt: 1 as const, tapeColor: "burnt" as const },
+  { src: "/images/life-lately-5.svg", alt: "Rooftop view over Capitol Hill", caption: "rooftop, no plans", tilt: 4 as const, tapeColor: "sage" as const },
+  { src: "/images/life-lately-6.svg", alt: "Golden hour light at Alki Beach", caption: "the good light", tilt: 2 as const, tapeColor: "burnt" as const },
+  { src: "/images/life-lately-7.svg", alt: "Farmers market produce haul", caption: "farmers market haul", tilt: 3 as const, tapeColor: "sage" as const },
+  { src: "/images/life-lately-8.svg", alt: "Reading a book at Elliott Bay Book Company", caption: "rainy day reading", tilt: 1 as const, tapeColor: "burnt" as const },
+];
+---
+
+<BaseLayout
+  title="Home"
+  description="A Seattle-based lifestyle and travel journal covering food, city life, itineraries and the honest in-between."
+>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <HeroMap />
+      <HeroStamp />
+      <p class="eyebrow hero-tags">
+        <span>Seattle-based</span>
+        <span class="nav-dot" aria-hidden="true"></span>
+        <span>Travel</span>
+        <span class="nav-dot" aria-hidden="true"></span>
+        <span>Content creator</span>
+      </p>
+      <h1 class="hero-title">
+        A love letter to Seattle, <em>one weekend at a time.</em>
+      </h1>
+      <p class="hero-copy">
+        I'm Brooke. I moved here on my own about a year ago and started writing everything down, the good
+        food, the trip planning, the days that didn't go as planned. This is what's left of it.
+      </p>
+      <a href="/journal" class="cta-link">Read the latest</a>
+    </div>
+  </section>
+
+  <section class="section-sm intro-photos">
+    <div class="wrap intro-photos-grid">
+      {
+        introPolaroids.map((p) => (
+          <Polaroid src={p.src} alt={p.alt} caption={p.caption} tilt={p.tilt} lightbox class="intro-photo" />
+        ))
+      }
+    </div>
+  </section>
+
+  <Lightbox />
+
+  <section class="section-sm seattle-teaser">
+    <div class="wrap seattle-teaser-inner">
+      <div>
+        <span class="eyebrow"><span class="nav-dot"></span> This week in Seattle</span>
+        <h2 class="section-title">Where to eat, what's on, and where I keep going back to.</h2>
+        <p class="section-sub">
+          A running list of the food, events, and things-to-do actually worth your Saturday, updated as I
+          find them.
+        </p>
+        <a href="/seattle" class="cta-link" style="margin-top: 1.5rem; display: inline-flex;">See the Seattle guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section life-lately">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Life lately</span>
+      <h2 class="section-title">Elsewhere, and in between the big posts.</h2>
+    </div>
+    <div class="life-lately-scroll-wrap">
+      <ul class="life-lately-scroll" id="life-lately-scroll" tabindex="0" aria-label="Recent life-lately photos, scroll horizontally">
+        {
+          lifeLately.map((p) => (
+            <li>
+              <TapePhoto src={p.src} alt={p.alt} caption={p.caption} tilt={p.tilt} tapeColor={p.tapeColor} />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="life-lately-fade" id="life-lately-fade" aria-hidden="true"></div>
+    </div>
+    <div class="wrap">
+      <a href="https://instagram.com/heyitsbrookeash" class="cta-link" target="_blank" rel="noreferrer noopener">
+        Come hang on Instagram
+      </a>
+    </div>
+  </section>
+
+  <section class="section journal-preview">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> From the journal</span>
+      <h2 class="section-title">The latest from the notebook.</h2>
+    </div>
+    <div class="wrap journal-preview-list">
+      {
+        latestPosts.map((post) => (
+          <a href={`/journal/${post.slug}`} class="journal-preview-item">
+            <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" />
+            <div class="journal-preview-copy">
+              <span class="tag">
+                {post.data.category}
+                <span class="tag-dot" />
+                {post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              </span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.excerpt}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: 3rem 4rem;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero-tags {
+    justify-content: center;
+  }
+
+  .hero-title {
+    margin-top: 1.1rem;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+  }
+
+  .hero-title em {
+    color: var(--burnt-deep);
+  }
+
+  .hero-copy {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    max-width: 52ch;
+    margin-inline: auto;
+    opacity: 0.85;
+  }
+
+  .hero-inner .cta-link {
+    margin-top: 2rem;
+  }
+
+  .intro-photos-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .intro-photos-grid :global(.intro-photo) {
+    width: 240px;
+    margin: 0 -1.25rem;
+  }
+
+  .intro-photos-grid :global(.intro-photo:nth-child(2)) {
+    z-index: 2;
+    width: 260px;
+  }
+
+  @media (max-width: 760px) {
+    .intro-photos-grid :global(.intro-photo) {
+      width: 42%;
+      margin: 0 -0.6rem;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .intro-photos-grid {
+      gap: 1.5rem;
+    }
+    .intro-photos-grid :global(.intro-photo),
+    .intro-photos-grid :global(.intro-photo:nth-child(2)) {
+      width: 68%;
+      margin: 0;
+    }
+  }
+
+  .seattle-teaser-inner {
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    padding: 3rem 2.5rem;
+  }
+
+  .seattle-teaser-inner .section-title {
+    max-width: 34ch;
+  }
+
+  .seattle-teaser-inner .section-sub {
+    max-width: 50ch;
+  }
+
+  .life-lately-scroll-wrap {
+    position: relative;
+  }
+
+  .life-lately-scroll {
+    display: flex;
+    gap: 1.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1.5rem 1.5rem;
+    scrollbar-width: thin;
+  }
+
+  @media (min-width: 768px) {
+    .life-lately-scroll {
+      padding-inline: max(2.5rem, calc((100vw - var(--max)) / 2 + 2.5rem));
+    }
+  }
+
+  .life-lately-scroll li {
+    flex: none;
+  }
+
+  .life-lately-fade {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 1.5rem;
+    width: 90px;
+    background: linear-gradient(to right, transparent, var(--cream));
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .life-lately-fade[data-hidden="true"] {
+    opacity: 0;
+  }
+
+  .journal-preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .journal-preview-item {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .journal-preview-list a:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .journal-preview-item img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid var(--charcoal);
+  }
+
+  .journal-preview-copy h3 {
+    margin-top: 0.6rem;
+    font-size: 1.6rem;
+  }
+
+  .journal-preview-copy p {
+    margin-top: 0.6rem;
+    opacity: 0.82;
+  }
+
+  @media (max-width: 760px) {
+    .journal-preview-item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  function initLifeLatelyFade() {
+    const scroll = document.getElementById("life-lately-scroll");
+    const fade = document.getElementById("life-lately-fade");
+    if (!scroll || !fade) return;
+
+    const update = () => {
+      const atEnd = scroll.scrollLeft + scroll.clientWidth >= scroll.scrollWidth - 8;
+      fade.dataset.hidden = atEnd ? "true" : "false";
+    };
+
+    scroll.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    scroll.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        scroll.scrollBy({ left: 240, behavior: "smooth" });
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        scroll.scrollBy({ left: -240, behavior: "smooth" });
+      }
+    });
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    scroll.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      startX = e.clientX;
+      scrollStart = scroll.scrollLeft;
+      scroll.setPointerCapture(e.pointerId);
+    });
+    scroll.addEventListener("pointermove", (e) => {
+      if (!isDown) return;
+      scroll.scrollLeft = scrollStart - (e.clientX - startX);
+    });
+    scroll.addEventListener("pointerup", () => {
+      isDown = false;
+    });
+    scroll.addEventListener("pointercancel", () => {
+      isDown = false;
+    });
+  }
+
+  initLifeLatelyFade();
+</script>

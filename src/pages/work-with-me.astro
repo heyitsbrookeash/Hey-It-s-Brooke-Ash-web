@@ -1,0 +1,315 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const stats = [
+  { value: "48K", label: "Followers" },
+  { value: "6.2%", label: "Engagement rate" },
+  { value: "22K", label: "Avg. views / post" },
+  { value: "PNW", label: "Core audience" },
+];
+
+const pillars = [
+  { title: "Travel guides", copy: "City-by-city itineraries, packing breakdowns, and honest hotel reviews." },
+  { title: "Seattle food", copy: "Restaurant features, neighborhood roundups, and first-look coverage." },
+  { title: "Outfit & style", copy: "Everyday and travel-ready looks, shot on location, not in a studio." },
+  { title: "Sponsored integrations", copy: "Product features woven into real trips and real weeks, not staged posts." },
+];
+
+const samples = Array.from({ length: 6 }, (_, i) => ({
+  src: `/images/sample-${i + 1}.svg`,
+  alt: `Sample content piece ${i + 1}`,
+}));
+
+const brands = Array.from({ length: 6 }, (_, i) => `/images/brand-${i + 1}.svg`);
+
+const budgets = ["Under $1,000", "$1,000 - $2,500", "$2,500 - $5,000", "$5,000+", "Let's talk"];
+---
+
+<BaseLayout
+  title="Work with me"
+  description="Brand partnership info, media kit, and a contact form for working with Hey It's Brooke Ash."
+>
+  <section class="section-sm wwm-hero">
+    <div class="wrap wwm-hero-inner">
+      <span class="eyebrow"><span class="nav-dot"></span> Work with me</span>
+      <h1 class="section-title">Let's make something your audience actually wants to see.</h1>
+      <p class="section-sub">
+        I partner with a small number of brands each quarter, the kind that fit naturally into a trip, a
+        weekend, or a Tuesday grocery run. If that's you, I'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-sm stats">
+    <div class="wrap stats-grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <p class="stat-value">{s.value}</p>
+            <p class="stat-label">{s.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section pillars">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> What I create</span>
+      <h2 class="section-title">Content pillars</h2>
+    </div>
+    <div class="wrap grid grid-4">
+      {
+        pillars.map((p) => (
+          <div class="card pillar-card">
+            <h3>{p.title}</h3>
+            <p>{p.copy}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-sm sample">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> A small sample</span>
+      <h2 class="section-title">Recent work</h2>
+    </div>
+    <div class="wrap grid grid-3">
+      {
+        samples.map((s) => (
+          <figure class="sample-item">
+            <img src={s.src} alt={s.alt} loading="lazy" />
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-sm brand-wall">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Brands I've worked with</span>
+      <h2 class="section-title">Trusted by</h2>
+    </div>
+    <div class="wrap brand-grid">
+      {brands.map((src) => <img src={src} alt="Brand logo" loading="lazy" class="brand-logo" />)}
+    </div>
+  </section>
+
+  <section class="section-sm media-kit">
+    <div class="wrap media-kit-inner">
+      <div>
+        <h2 class="section-title">Want the full numbers?</h2>
+        <p class="section-sub">
+          Audience demographics, platform breakdowns, past partnership results, and rates, all in one PDF.
+        </p>
+      </div>
+      <a href="/media-kit.pdf" class="btn" download>Download the media kit</a>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> Get in touch</span>
+      <h2 class="section-title">Tell me about your brand</h2>
+      <p class="section-sub">I read every message myself, usually within a few days.</p>
+    </div>
+    <div class="wrap">
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="contact-grid">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="cf-brand">Brand</label>
+            <input type="text" id="cf-brand" name="brand" required autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="cf-budget">Budget</label>
+            <select id="cf-budget" name="budget" required>
+              <option value="" disabled selected>Select a range</option>
+              {budgets.map((b) => <option value={b}>{b}</option>)}
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send it over</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .wwm-hero-inner {
+    max-width: 680px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    background: var(--charcoal);
+    padding: 2.5rem 2rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    color: var(--sage);
+  }
+
+  .stat-label {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+
+  .pillar-card {
+    padding: 1.75rem;
+  }
+
+  .pillar-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .pillar-card p {
+    margin-top: 0.6rem;
+    font-size: 0.92rem;
+    opacity: 0.82;
+  }
+
+  .sample-item {
+    margin: 0;
+    border: 1px solid var(--charcoal);
+    overflow: hidden;
+  }
+
+  .sample-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .brand-logo {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .media-kit-inner {
+    background: var(--burnt);
+    color: var(--paper);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .media-kit-inner .section-title {
+    color: var(--paper);
+    max-width: 24ch;
+  }
+
+  .media-kit-inner .section-sub {
+    color: var(--paper);
+    opacity: 0.92;
+  }
+
+  .media-kit-inner .btn {
+    background: var(--paper);
+    color: var(--burnt-deep);
+    border-color: var(--paper);
+    flex: none;
+  }
+
+  .media-kit-inner .btn:hover {
+    background: var(--cream);
+  }
+
+  .contact-form {
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .brand-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector<HTMLElement>(".form-status");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      submitBtn && (submitBtn.disabled = true);
+      if (status) {
+        status.dataset.state = "";
+        status.textContent = "Sending...";
+      }
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("request failed");
+        if (status) {
+          status.dataset.state = "success";
+          status.textContent = "Got it, thank you. I'll be in touch soon.";
+        }
+        form.reset();
+      } catch {
+        if (status) {
+          status.dataset.state = "error";
+          status.textContent = "That didn't send. Mind trying again, or emailing me directly?";
+        }
+      } finally {
+        submitBtn && (submitBtn.disabled = false);
+      }
+    });
+  }
+</script>

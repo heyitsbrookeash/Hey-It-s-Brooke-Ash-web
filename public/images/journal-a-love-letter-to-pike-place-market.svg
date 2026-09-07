@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="g-journal-a-love-letter-to-pike-place-market" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5EDE0" />
+      <stop offset="1" stop-color="#B5C4A1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#g-journal-a-love-letter-to-pike-place-market)" />
+  <rect x="488" y="0" width="8" height="750" fill="#20231B" opacity="0.04" transform="rotate(92 600 375)" /><rect x="489" y="0" width="11" height="750" fill="#20231B" opacity="0.04" transform="rotate(92 600 375)" /><rect x="490" y="0" width="14" height="750" fill="#20231B" opacity="0.04" transform="rotate(92 600 375)" /><rect x="491" y="0" width="17" height="750" fill="#20231B" opacity="0.04" transform="rotate(92 600 375)" /><rect x="492" y="0" width="20" height="750" fill="#20231B" opacity="0.04" transform="rotate(92 600 375)" />
+  <rect width="1200" height="750" fill="#20231B" opacity="0.06" />
+  
+  <text x="600" y="375" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="66" fill="#FBF7EF" opacity="0.95">a love letter to pike place</text>
+  
+</svg>

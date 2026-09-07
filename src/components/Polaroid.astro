@@ -1,0 +1,51 @@
+---
+export type Props = {
+  src: string;
+  alt: string;
+  caption: string;
+  tilt?: 1 | 2 | 3 | 4;
+  lightbox?: boolean;
+  class?: string;
+};
+
+const { src, alt, caption, tilt = 1, lightbox = false, class: className = "" } = Astro.props;
+const tiltClass = `tilt-${tilt}`;
+---
+
+{
+  lightbox ? (
+    <button
+      type="button"
+      class={`polaroid as-button ${tiltClass} ${className}`}
+      data-lightbox-trigger
+      data-lightbox-src={src}
+      data-lightbox-alt={alt}
+      data-lightbox-caption={caption}
+    >
+      <img src={src} alt={alt} loading="lazy" />
+      <span class="polaroid-caption">{caption}</span>
+    </button>
+  ) : (
+    <figure class={`polaroid ${tiltClass} ${className}`}>
+      <img src={src} alt={alt} loading="lazy" />
+      <figcaption>{caption}</figcaption>
+    </figure>
+  )
+}
+
+<style>
+  .polaroid.as-button {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .polaroid-caption {
+    display: block;
+    margin-top: 0.65rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    text-align: center;
+    color: var(--charcoal);
+  }
+</style>

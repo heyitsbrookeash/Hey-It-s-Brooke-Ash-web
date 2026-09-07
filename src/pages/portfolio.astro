@@ -1,0 +1,278 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const galleryCategories = ["All", "Travel", "Seattle", "Style", "Behind the scenes"];
+const galleryTags = ["travel", "seattle", "style", "behind-the-scenes", "travel", "seattle", "style", "behind-the-scenes", "travel"];
+const gallery = Array.from({ length: 9 }, (_, i) => ({
+  src: `/images/gallery-${i + 1}.svg`,
+  kind: (i + 1) % 4 === 0 ? "video" : "photo",
+  category: galleryTags[i],
+}));
+
+const moodClasses = ["mood-square", "mood-tall", "mood-xtall", "mood-wide"];
+const moodboard = Array.from({ length: 14 }, (_, i) => ({
+  src: `/images/mood-${i + 1}.svg`,
+  cls: moodClasses[i % moodClasses.length],
+  kind: i % 5 === 0 ? "video" : "photo",
+}));
+
+const steps = [
+  { title: "Discovery call", copy: "We talk goals, timeline, and whether the fit actually makes sense before anything is signed." },
+  { title: "Concept + content plan", copy: "I pitch the creative angle and a rough shot list, tied to what your audience actually wants from mine." },
+  { title: "Shoot + draft", copy: "Content is shot on location in Seattle or on a trip, then shared as drafts for a round of feedback." },
+  { title: "Publish + report", copy: "Content goes live on the agreed timeline, with a performance recap within two weeks." },
+];
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="A visual portfolio of Brooke's photography and content work: the fuller library, the moodboard, and how partnerships run."
+>
+  <section class="section-sm portfolio-hero">
+    <div class="wrap portfolio-hero-inner">
+      <span class="eyebrow"><span class="nav-dot"></span> Portfolio</span>
+      <h1 class="section-title">A closer look at the actual work.</h1>
+      <p class="section-sub">
+        Photography, video, and content built for brands and for the blog itself. This is the fuller
+        picture behind the polished grid.
+      </p>
+    </div>
+  </section>
+
+  <section class="section gallery-section" data-filter-scope>
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> The fuller library</span>
+      <h2 class="section-title">Browse by category</h2>
+      <div class="chip-row gallery-filters" data-filter-group="category">
+        {
+          galleryCategories.map((c, i) => (
+            <button type="button" class="chip" data-filter-value={c === "All" ? "all" : c.toLowerCase().replace(" ", "-")} aria-pressed={i === 0 ? "true" : "false"}>
+              {c}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div class="wrap gallery-grid">
+      {
+        gallery.map((g) => (
+          <figure class="gallery-item" data-filterable data-category={g.category}>
+            <img src={g.src} alt="Portfolio piece" loading="lazy" />
+            {g.kind === "video" && <span class="play-badge" aria-hidden="true">&#9658;</span>}
+          </figure>
+        ))
+      }
+      <p data-filter-empty hidden class="gallery-empty">Nothing in this category yet.</p>
+    </div>
+  </section>
+
+  <section class="section moodboard-section">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> The moodboard</span>
+      <h2 class="section-title">A running visual diary</h2>
+    </div>
+    <div class="moodboard-wrap">
+      <div class="wrap">
+        <div class="moodboard">
+          {
+            moodboard.map((m) => (
+              <figure class={`mood-item ${m.cls}`}>
+                <img src={m.src} alt="Moodboard image" loading="lazy" />
+                {m.kind === "video" && <span class="play-badge" aria-hidden="true">&#9658;</span>}
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+      <div class="moodboard-fade" aria-hidden="true"></div>
+    </div>
+    <div class="wrap">
+      <a href="https://instagram.com/heyitsbrookeash" class="cta-link" target="_blank" rel="noreferrer noopener">
+        See the rest on Instagram
+      </a>
+    </div>
+  </section>
+
+  <section class="section-sm process">
+    <div class="wrap section-head">
+      <span class="eyebrow"><span class="nav-dot"></span> How a partnership actually runs</span>
+      <h2 class="section-title">Four steps, start to finish</h2>
+    </div>
+    <ol class="wrap process-steps">
+      {
+        steps.map((s, i) => (
+          <li>
+            <span class="step-num">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.copy}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .portfolio-hero-inner {
+    max-width: 640px;
+  }
+
+  .gallery-filters {
+    margin-top: 1.5rem;
+  }
+
+  .gallery-grid {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--charcoal);
+    overflow: hidden;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .play-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--charcoal);
+    font-size: 0.9rem;
+  }
+
+  .gallery-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-style: italic;
+    font-family: var(--font-serif);
+    padding: 2rem;
+  }
+
+  .moodboard-wrap {
+    position: relative;
+  }
+
+  .moodboard {
+    column-count: 2;
+    column-gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .moodboard {
+      column-count: 3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .moodboard {
+      column-count: 4;
+    }
+  }
+
+  .mood-item {
+    position: relative;
+    margin: 0 0 1.25rem;
+    break-inside: avoid;
+    border: 1px solid var(--charcoal);
+    overflow: hidden;
+  }
+
+  .mood-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mood-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .mood-tall {
+    aspect-ratio: 3 / 4;
+  }
+
+  .mood-xtall {
+    aspect-ratio: 2 / 3;
+  }
+
+  .mood-wide {
+    aspect-ratio: 4 / 3;
+  }
+
+  .moodboard-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 160px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    pointer-events: none;
+  }
+
+  .process-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .process-steps li {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .step-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--burnt);
+    flex: none;
+  }
+
+  .process-steps h3 {
+    font-size: 1.2rem;
+  }
+
+  .process-steps p {
+    margin-top: 0.5rem;
+    opacity: 0.82;
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 760px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { initFilters } from "../scripts/filters";
+  initFilters();
+</script>

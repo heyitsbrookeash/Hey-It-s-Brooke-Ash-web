@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <linearGradient id="g-gallery-4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B5C4A1" />
+      <stop offset="1" stop-color="#7E9265" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#g-gallery-4)" />
+  <rect x="247" y="0" width="8" height="800" fill="#20231B" opacity="0.04" transform="rotate(81 400 400)" /><rect x="248" y="0" width="11" height="800" fill="#20231B" opacity="0.04" transform="rotate(81 400 400)" /><rect x="249" y="0" width="14" height="800" fill="#20231B" opacity="0.04" transform="rotate(81 400 400)" /><rect x="250" y="0" width="17" height="800" fill="#20231B" opacity="0.04" transform="rotate(81 400 400)" /><rect x="251" y="0" width="20" height="800" fill="#20231B" opacity="0.04" transform="rotate(81 400 400)" />
+  <rect width="800" height="800" fill="#20231B" opacity="0.06" />
+  <g>
+           <circle cx="400" cy="400" r="88" fill="#FBF7EF" opacity="0.92" stroke="#2D2D2D" stroke-width="2" />
+           <path d="M388 380 L422 400 L388 420 Z" fill="#2D2D2D" />
+         </g>
+  <text x="400" y="576" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#FBF7EF" opacity="0.95">reel 4</text>
+  
+</svg>

@@ -1,0 +1,139 @@
+---
+export type Props = {
+  heading?: string;
+  copy?: string;
+  sticker?: boolean;
+};
+
+const {
+  heading = "Stay in the loop",
+  copy = "One email, every week. Everything worth doing in Seattle that week, plus where I'm headed next.",
+  sticker = false,
+} = Astro.props;
+---
+
+<section class="newsletter section-sm">
+  <div class="wrap newsletter-inner">
+    {
+      sticker && (
+        <svg class="sticker send-it-sticker" width="86" height="86" viewBox="0 0 86 86" aria-hidden="true">
+          <circle cx="43" cy="43" r="40" fill="var(--burnt)" stroke="var(--charcoal)" stroke-width="1.5" transform="rotate(-8 43 43)" />
+          <path d="M25 46 L58 30 L48 60 L43 47 L25 46Z" fill="var(--paper)" stroke="var(--charcoal)" stroke-width="1" transform="rotate(-8 43 43)" />
+          <text x="43" y="70" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="11" fill="var(--paper)" transform="rotate(-8 43 43)">send it</text>
+        </svg>
+      )
+    }
+    <div class="newsletter-copy">
+      <span class="eyebrow"><span class="nav-dot"></span> Newsletter</span>
+      <h2 class="section-title">{heading}</h2>
+      <p class="section-sub">{copy}</p>
+    </div>
+
+    <form class="newsletter-form" id="newsletter-form" data-newsletter-form novalidate>
+      <label for="newsletter-email" class="visually-hidden">Email address</label>
+      <input
+        type="email"
+        id="newsletter-email"
+        name="email"
+        placeholder="you@example.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="btn">Subscribe</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .newsletter {
+    position: relative;
+  }
+
+  .newsletter-inner {
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .newsletter-copy .section-title {
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .newsletter-form input {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--charcoal);
+    background: var(--cream);
+  }
+
+  .newsletter-form .btn {
+    width: 100%;
+  }
+
+  .send-it-sticker {
+    top: -30px;
+    left: -10px;
+    transform: rotate(-6deg);
+  }
+
+  @media (max-width: 760px) {
+    .newsletter-inner {
+      grid-template-columns: 1fr;
+      padding: 2.25rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  function initNewsletterForms() {
+    document.querySelectorAll<HTMLFormElement>("[data-newsletter-form]").forEach((form) => {
+      if (form.dataset.bound) return;
+      form.dataset.bound = "true";
+      const status = form.querySelector<HTMLElement>(".form-status");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = (form.querySelector("input[type=email]") as HTMLInputElement)?.value.trim();
+        if (!email) return;
+        const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        submitBtn && (submitBtn.disabled = true);
+        if (status) {
+          status.dataset.state = "";
+          status.textContent = "Sending...";
+        }
+        try {
+          const res = await fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) throw new Error("request failed");
+          if (status) {
+            status.dataset.state = "success";
+            status.textContent = "You're in. First email lands this week.";
+          }
+          form.reset();
+        } catch {
+          if (status) {
+            status.dataset.state = "error";
+            status.textContent = "Something didn't work. Try again in a minute?";
+          }
+        } finally {
+          submitBtn && (submitBtn.disabled = false);
+        }
+      });
+    });
+  }
+
+  initNewsletterForms();
+</script>

@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("journal");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description={post.data.excerpt}>
+  <article class="post section-sm">
+    <div class="wrap post-head">
+      <a href="/journal" class="cta-link">Back to journal</a>
+      <span class="tag" style="margin-top: 1.5rem;">
+        {post.data.category}
+        <span class="tag-dot"></span>
+        {post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+      </span>
+      <h1 class="post-title">{post.data.title}</h1>
+    </div>
+
+    <div class="wrap post-image-wrap">
+      <img src={post.data.image} alt={post.data.imageAlt} class="post-image" />
+    </div>
+
+    <div class="wrap post-body">
+      <Content />
+    </div>
+  </article>
+
+  <Newsletter />
+</BaseLayout>
+
+<style>
+  .post-head {
+    max-width: 68ch;
+  }
+
+  .post-title {
+    margin-top: 1rem;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+  }
+
+  .post-image-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .post-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid var(--charcoal);
+  }
+
+  .post-body {
+    max-width: 68ch;
+    margin-top: 2.5rem;
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  .post-body :global(p) {
+    margin-bottom: 1.4rem;
+  }
+</style>

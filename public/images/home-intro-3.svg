@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="g-home-intro-3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7E9265" />
+      <stop offset="1" stop-color="#2D2D2D" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g-home-intro-3)" />
+  <rect x="652" y="0" width="8" height="1000" fill="#20231B" opacity="0.04" transform="rotate(52 400 500)" /><rect x="653" y="0" width="11" height="1000" fill="#20231B" opacity="0.04" transform="rotate(52 400 500)" /><rect x="654" y="0" width="14" height="1000" fill="#20231B" opacity="0.04" transform="rotate(52 400 500)" /><rect x="655" y="0" width="17" height="1000" fill="#20231B" opacity="0.04" transform="rotate(52 400 500)" /><rect x="656" y="0" width="20" height="1000" fill="#20231B" opacity="0.04" transform="rotate(52 400 500)" />
+  <rect width="800" height="1000" fill="#20231B" opacity="0.06" />
+  
+  <text x="400" y="500" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#FBF7EF" opacity="0.95">market runs</text>
+  <text x="400" y="558" text-anchor="middle" font-family="Arial, sans-serif" font-size="22.400000000000002" letter-spacing="1" fill="#FBF7EF" opacity="0.8">PIKE PLACE</text>
+</svg>

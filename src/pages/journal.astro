@@ -1,0 +1,223 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Newsletter from "../components/Newsletter.astro";
+import Sticker from "../components/Sticker.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("journal")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const featured = allPosts.find((p) => p.data.featured) ?? allPosts[0];
+const rest = allPosts.filter((p) => p.slug !== featured.slug);
+
+const categories = ["All", "Journal", "Seattle", "Travel"];
+---
+
+<BaseLayout
+  title="Journal"
+  description="Behind-the-scenes journal posts on moving to Seattle, food, travel, and building a life from scratch."
+>
+  <section class="section-sm journal-hero">
+    <div class="wrap journal-hero-inner">
+      <Sticker kind="compass" class="journal-compass" rotate={8} size={100} />
+      <span class="eyebrow"><span class="nav-dot"></span> The journal</span>
+      <h1 class="section-title">The notebook behind the posts.</h1>
+      <p class="section-sub">
+        The stuff that doesn't fit neatly into a guide: the honest weeks, the good finds, the in-between.
+      </p>
+    </div>
+  </section>
+
+  <div data-filter-scope>
+  <section class="section-sm filter-section">
+    <div class="wrap filter-bar-wrap">
+      <Sticker kind="starburst" class="reader-favorite-sticker" rotate={-10} size={80} />
+      <div class="chip-row" data-filter-group="category">
+        {
+          categories.map((c, i) => (
+            <button type="button" class="chip" data-filter-value={c === "All" ? "all" : c.toLowerCase()} aria-pressed={i === 0 ? "true" : "false"}>
+              {c}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm featured">
+    <div class="wrap featured-inner">
+      <div class="featured-photos">
+        <Sticker kind="heart" class="featured-heart" rotate={10} size={78} />
+        <figure class="polaroid tilt-1 featured-photo-a">
+          <img src={featured.data.image} alt={featured.data.imageAlt} />
+          <figcaption>{featured.data.title}</figcaption>
+        </figure>
+        <figure class="polaroid tilt-3 featured-photo-b">
+          <img src="/images/life-lately-5.svg" alt="A quiet Seattle afternoon" />
+          <figcaption>reader favorite</figcaption>
+        </figure>
+      </div>
+      <div class="featured-copy">
+        <span class="eyebrow"><span class="nav-dot"></span> Featured</span>
+        <h2 class="section-title">{featured.data.title}</h2>
+        <p class="section-sub">{featured.data.excerpt}</p>
+        <a href={`/journal/${featured.slug}`} class="cta-link">Read the full post</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section post-list-section">
+    <div class="wrap post-list">
+      {
+        rest.map((post) => (
+          <a
+            href={`/journal/${post.slug}`}
+            class="post-list-item"
+            data-filterable
+            data-category={post.data.category}
+          >
+            <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" />
+            <div class="post-list-copy">
+              <span class="tag">
+                {post.data.category}
+                <span class="tag-dot" />
+                {post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              </span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.excerpt}</p>
+            </div>
+          </a>
+        ))
+      }
+      <p data-filter-empty hidden class="post-list-empty">No posts in that category yet, check back soon.</p>
+    </div>
+  </section>
+  </div>
+
+  <Newsletter sticker />
+</BaseLayout>
+
+<style>
+  .journal-hero-inner {
+    position: relative;
+    max-width: 640px;
+  }
+
+  .journal-hero-inner :global(.journal-compass) {
+    top: -1.5rem;
+    right: 0;
+  }
+
+  .filter-bar-wrap {
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .filter-bar-wrap :global(.reader-favorite-sticker) {
+    top: -1.75rem;
+    left: -0.5rem;
+  }
+
+  .featured-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    padding: 3rem;
+  }
+
+  .featured-photos {
+    position: relative;
+    min-height: 320px;
+  }
+
+  .featured-photo-a {
+    width: 70%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .featured-photo-a img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .featured-photo-b {
+    width: 45%;
+    position: absolute;
+    right: -0.5rem;
+    bottom: -1.5rem;
+    z-index: 2;
+  }
+
+  .featured-photos :global(.featured-heart) {
+    top: -1.5rem;
+    left: 40%;
+    z-index: 3;
+  }
+
+  .featured-copy .section-title {
+    margin-top: 0.75rem;
+  }
+
+  .featured-copy .cta-link {
+    margin-top: 1.5rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .post-list-item {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-list-item img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid var(--charcoal);
+  }
+
+  .post-list-copy h3 {
+    margin-top: 0.6rem;
+    font-size: 1.5rem;
+  }
+
+  .post-list-copy p {
+    margin-top: 0.6rem;
+    opacity: 0.82;
+  }
+
+  .post-list-empty {
+    text-align: center;
+    font-style: italic;
+    font-family: var(--font-serif);
+    padding: 2rem;
+  }
+
+  @media (max-width: 760px) {
+    .featured-inner {
+      grid-template-columns: 1fr;
+      padding: 2rem;
+    }
+    .post-list-item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { initFilters } from "../scripts/filters";
+  initFilters();
+</script>

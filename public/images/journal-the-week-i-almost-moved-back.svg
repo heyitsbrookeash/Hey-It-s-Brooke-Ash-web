@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="g-journal-the-week-i-almost-moved-back" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B5C4A1" />
+      <stop offset="1" stop-color="#7E9265" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#g-journal-the-week-i-almost-moved-back)" />
+  <rect x="763" y="0" width="8" height="750" fill="#20231B" opacity="0.04" transform="rotate(117 600 375)" /><rect x="764" y="0" width="11" height="750" fill="#20231B" opacity="0.04" transform="rotate(117 600 375)" /><rect x="765" y="0" width="14" height="750" fill="#20231B" opacity="0.04" transform="rotate(117 600 375)" /><rect x="766" y="0" width="17" height="750" fill="#20231B" opacity="0.04" transform="rotate(117 600 375)" /><rect x="767" y="0" width="20" height="750" fill="#20231B" opacity="0.04" transform="rotate(117 600 375)" />
+  <rect width="1200" height="750" fill="#20231B" opacity="0.06" />
+  
+  <text x="600" y="375" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="66" fill="#FBF7EF" opacity="0.95">the week i almost moved back</text>
+  
+</svg>

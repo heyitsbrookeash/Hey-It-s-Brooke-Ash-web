@@ -1,0 +1,263 @@
+---
+import { menuGroups, socialLinks } from "../lib/nav";
+---
+
+<div
+  class="menu-overlay"
+  id="site-menu-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+  hidden
+>
+  <div class="menu-overlay-inner">
+    <div class="wrap menu-top">
+      <a href="/" class="wordmark">Hey It's <em>Brooke Ash</em></a>
+      <button type="button" class="menu-close" id="menu-close-btn" aria-label="Close menu">
+        <span aria-hidden="true">Close</span>
+      </button>
+    </div>
+
+    <div class="wrap menu-body">
+      <div class="menu-columns">
+        {
+          menuGroups.map((group) => (
+            <div class="menu-col">
+              <p class="menu-col-heading">{group.heading}</p>
+              <ul>
+                {group.links.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="menu-social">
+        <p class="menu-col-heading">Come hang out</p>
+        <ul>
+          {
+            socialLinks.map((link) => (
+              <li>
+                <a href={link.href} target="_blank" rel="noreferrer noopener">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--charcoal);
+    color: var(--cream);
+    overflow-y: auto;
+  }
+
+  .menu-overlay[hidden] {
+    display: none;
+  }
+
+  .menu-overlay-inner {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-block: 1.5rem 3rem;
+  }
+
+  .menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line-on-ink);
+  }
+
+  .menu-top .wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .menu-top .wordmark em {
+    color: var(--sage);
+  }
+
+  .menu-close {
+    background: transparent;
+    border: 1px solid var(--line-on-ink);
+    color: var(--cream);
+    padding: 0.6rem 1.1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .menu-close:hover {
+    border-color: var(--cream);
+  }
+
+  .menu-body {
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    flex: 1;
+  }
+
+  .menu-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .menu-col-heading {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .menu-col ul,
+  .menu-social ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .menu-col a,
+  .menu-social a {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .menu-col a:hover,
+  .menu-social a:hover {
+    color: var(--sage);
+  }
+
+  .menu-social {
+    border-top: 1px solid var(--line-on-ink);
+    padding-top: 2rem;
+  }
+
+  .menu-social ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+  }
+
+  .menu-social a {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .menu-columns {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.25rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .menu-columns {
+      grid-template-columns: 1fr;
+    }
+    .menu-col a,
+    .menu-social a {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<script>
+  function initMenuOverlay() {
+    const overlay = document.getElementById("site-menu-overlay") as HTMLElement | null;
+    const closeBtn = document.getElementById("menu-close-btn");
+    if (!overlay || !closeBtn) return;
+
+    let lastTrigger: HTMLElement | null = null;
+
+    const getFocusable = () =>
+      Array.from(
+        overlay.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null);
+
+    const open = (trigger: HTMLElement | null) => {
+      lastTrigger = trigger ?? (document.activeElement as HTMLElement | null);
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
+      trigger?.setAttribute("aria-expanded", "true");
+      const focusable = getFocusable();
+      (focusable[0] ?? closeBtn).focus();
+    };
+
+    const close = () => {
+      overlay.hidden = true;
+      document.body.style.overflow = "";
+      document
+        .querySelectorAll('[aria-controls="site-menu-overlay"]')
+        .forEach((el) => el.setAttribute("aria-expanded", "false"));
+      lastTrigger?.focus();
+    };
+
+    window.addEventListener("brooke:menu-open", (e) => {
+      const detail = (e as CustomEvent).detail as { trigger?: HTMLElement } | undefined;
+      open(detail?.trigger ?? null);
+    });
+
+    closeBtn.addEventListener("click", close);
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) close();
+    });
+
+    overlay.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key === "Tab") {
+        const focusable = getFocusable();
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
+  initMenuOverlay();
+</script>
