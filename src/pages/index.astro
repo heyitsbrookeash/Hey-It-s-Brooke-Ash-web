@@ -6,6 +6,7 @@ import TapePhoto from "../components/TapePhoto.astro";
 import Newsletter from "../components/Newsletter.astro";
 import HeroMap from "../components/HeroMap.astro";
 import HeroStamp from "../components/HeroStamp.astro";
+import Sticker from "../components/Sticker.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("journal")).sort(
@@ -69,6 +70,30 @@ const lifeLately = [
   </section>
 
   <Lightbox />
+
+  <section class="section-sm meet-brooke">
+    <div class="wrap meet-brooke-inner">
+      <div class="meet-brooke-photo">
+        <Sticker kind="pin" class="meet-brooke-pin" rotate={-4} size={56} />
+        <Polaroid
+          src="/images/about-journey.svg"
+          alt="Brooke on the day she moved to Seattle"
+          caption="day one, August of last year"
+          tilt={2}
+        />
+      </div>
+      <div class="meet-brooke-copy">
+        <span class="eyebrow"><span class="nav-dot"></span> Meet Brooke</span>
+        <h2 class="section-title">Hi, I'm Brooke.</h2>
+        <p class="section-sub">
+          By day I'm in sales, chasing quotas and cold-calling strangers. About a year ago I packed a car
+          and moved to Seattle on my own, knowing exactly one person here. This site is everything I've
+          collected since: the food, the trips, the days that didn't go as planned.
+        </p>
+        <a href="/about" class="cta-link">Read the full story</a>
+      </div>
+    </div>
+  </section>
 
   <section class="section-sm seattle-teaser">
     <div class="wrap seattle-teaser-inner">
@@ -207,6 +232,36 @@ const lifeLately = [
     .intro-photos-grid :global(.intro-photo:nth-child(2)) {
       width: 68%;
       margin: 0;
+    }
+  }
+
+  .meet-brooke-inner {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .meet-brooke-photo {
+    position: relative;
+    max-width: 220px;
+  }
+
+  .meet-brooke-photo :global(.meet-brooke-pin) {
+    top: -1.1rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+  }
+
+  .meet-brooke-copy .section-title {
+    font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  }
+
+  @media (max-width: 700px) {
+    .meet-brooke-inner {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
     }
   }
 

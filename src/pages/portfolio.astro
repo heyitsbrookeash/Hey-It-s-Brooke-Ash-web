@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Sticker from "../components/Sticker.astro";
 
 const galleryCategories = ["All", "Travel", "Seattle", "Style", "Behind the scenes"];
 const galleryTags = ["travel", "seattle", "style", "behind-the-scenes", "travel", "seattle", "style", "behind-the-scenes", "travel"];
@@ -31,6 +32,7 @@ const steps = [
 >
   <section class="section-sm portfolio-hero">
     <div class="wrap portfolio-hero-inner">
+      <Sticker kind="reel" class="portfolio-reel" rotate={-7} size={86} />
       <span class="eyebrow"><span class="nav-dot"></span> Portfolio</span>
       <h1 class="section-title">A closer look at the actual work.</h1>
       <p class="section-sub">
@@ -117,7 +119,19 @@ const steps = [
 
 <style>
   .portfolio-hero-inner {
+    position: relative;
     max-width: 640px;
+  }
+
+  .portfolio-hero-inner :global(.portfolio-reel) {
+    top: -1.5rem;
+    right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-hero-inner :global(.portfolio-reel) {
+      display: none;
+    }
   }
 
   .gallery-filters {

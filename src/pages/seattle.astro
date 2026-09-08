@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Polaroid from "../components/Polaroid.astro";
 import Newsletter from "../components/Newsletter.astro";
+import Sticker from "../components/Sticker.astro";
 
 const food = [
   { src: "/images/food-1.svg", name: "Altura", caption: "Capitol Hill, Italian tasting menu" },
@@ -71,6 +72,7 @@ const cations = {
 >
   <section class="section-sm seattle-hero">
     <div class="wrap seattle-hero-inner">
+      <Sticker kind="coffee" class="seattle-coffee" rotate={-8} size={82} />
       <span class="eyebrow"><span class="nav-dot"></span> The Seattle guide</span>
       <h1 class="section-title">Everything I actually recommend around here.</h1>
       <p class="section-sub">
@@ -209,7 +211,19 @@ const cations = {
 
 <style>
   .seattle-hero-inner {
+    position: relative;
     max-width: 640px;
+  }
+
+  .seattle-hero-inner :global(.seattle-coffee) {
+    top: -1.5rem;
+    right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .seattle-hero-inner :global(.seattle-coffee) {
+      display: none;
+    }
   }
 
   .tablist {

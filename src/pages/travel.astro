@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Polaroid from "../components/Polaroid.astro";
 import Newsletter from "../components/Newsletter.astro";
+import Sticker from "../components/Sticker.astro";
 
 const regions = [
   {
@@ -52,6 +53,7 @@ const itineraries = [
 >
   <section class="section-sm travel-hero">
     <div class="wrap travel-hero-inner">
+      <Sticker kind="passport" class="travel-passport" rotate={7} size={90} />
       <span class="eyebrow"><span class="nav-dot"></span> Travel</span>
       <h1 class="section-title">Everywhere I've been, and where I'm headed next.</h1>
       <p class="section-sub">
@@ -131,7 +133,19 @@ const itineraries = [
 
 <style>
   .travel-hero-inner {
+    position: relative;
     max-width: 640px;
+  }
+
+  .travel-hero-inner :global(.travel-passport) {
+    top: -1.75rem;
+    right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .travel-hero-inner :global(.travel-passport) {
+      display: none;
+    }
   }
 
   .regions {

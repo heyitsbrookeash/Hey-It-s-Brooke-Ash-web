@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Sticker from "../components/Sticker.astro";
 
 const stats = [
   { value: "48K", label: "Followers" },
@@ -32,6 +33,7 @@ const budgets = ["Under $1,000", "$1,000 - $2,500", "$2,500 - $5,000", "$5,000+"
 >
   <section class="section-sm wwm-hero">
     <div class="wrap wwm-hero-inner">
+      <Sticker kind="camera" class="wwm-camera" rotate={6} size={84} />
       <span class="eyebrow"><span class="nav-dot"></span> Work with me</span>
       <h1 class="section-title">Let's make something your audience actually wants to see.</h1>
       <p class="section-sub">
@@ -151,7 +153,19 @@ const budgets = ["Under $1,000", "$1,000 - $2,500", "$2,500 - $5,000", "$5,000+"
 
 <style>
   .wwm-hero-inner {
+    position: relative;
     max-width: 680px;
+  }
+
+  .wwm-hero-inner :global(.wwm-camera) {
+    top: -1.5rem;
+    right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .wwm-hero-inner :global(.wwm-camera) {
+      display: none;
+    }
   }
 
   .stats-grid {
