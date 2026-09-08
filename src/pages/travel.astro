@@ -39,10 +39,30 @@ const hotels = [
 ];
 
 const itineraries = [
-  { src: "/images/itinerary-1.svg", title: "A weekend in Portland", copy: "Food carts, bookstores, one perfect coffee shop." },
-  { src: "/images/itinerary-2.svg", title: "Four days in Amsterdam", copy: "Bikes, canals, and the bakery you can't skip." },
-  { src: "/images/itinerary-3.svg", title: "Three days in Savannah", copy: "Slow mornings, a lot of walking, one big dinner." },
-  { src: "/images/itinerary-4.svg", title: "A long weekend in Palm Springs", copy: "Poolside, midcentury architecture, good light." },
+  {
+    src: "/images/itinerary-seattle.svg",
+    title: "A perfect weekend in Seattle",
+    copy: "Coffee, waterfront, and the neighborhoods worth wandering, mapped out for a first visit.",
+    href: "/seattle",
+  },
+  {
+    src: "/images/itinerary-london.svg",
+    title: "Four days in London",
+    copy: "Markets, museums, and a pub every single night, paced so you actually get to rest.",
+    href: "#",
+  },
+  {
+    src: "/images/itinerary-st-augustine.svg",
+    title: "A long weekend in St. Augustine",
+    copy: "The oldest city in the country, done right: cobblestone streets, one very good crab shack, sunset on the fort walls.",
+    href: "#",
+  },
+  {
+    src: "/images/itinerary-new-york.svg",
+    title: "Three days in New York",
+    copy: "A first-timer's pace: the classics, the neighborhoods locals actually love, and zero wasted subway rides.",
+    href: "#",
+  },
 ];
 ---
 
@@ -120,7 +140,7 @@ const itineraries = [
     <div class="wrap grid grid-2">
       {
         itineraries.map((it) => (
-          <a href="#" class="itinerary-card">
+          <a href={it.href} class="itinerary-card">
             <img src={it.src} alt={it.title} loading="lazy" />
             <div class="itinerary-copy">
               <h3>{it.title}</h3>
