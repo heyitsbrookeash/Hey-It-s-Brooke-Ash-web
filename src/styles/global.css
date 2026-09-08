@@ -351,6 +351,26 @@ select {
   transform: rotate(-6deg);
 }
 
+/* ---------- page header photo ---------- */
+
+.page-header-photo {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.page-header-photo img {
+  width: 100%;
+  aspect-ratio: 21 / 8;
+  object-fit: cover;
+  border: 1.5px solid var(--charcoal);
+}
+
+@media (max-width: 640px) {
+  .page-header-photo img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 /* ---------- stickers ---------- */
 
 .sticker {

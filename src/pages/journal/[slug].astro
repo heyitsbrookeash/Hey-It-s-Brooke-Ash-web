@@ -72,4 +72,28 @@ const { Content } = await post.render();
   .post-body :global(p) {
     margin-bottom: 1.4rem;
   }
+
+  .post-body :global(h2) {
+    margin: 2.2rem 0 1rem;
+    font-size: 1.6rem;
+  }
+
+  .post-body :global(ul) {
+    margin: 0 0 1.4rem;
+    padding-left: 1.3rem;
+  }
+
+  .post-body :global(li) {
+    margin-bottom: 0.6rem;
+    line-height: 1.65;
+  }
+
+  .post-body :global(li)::marker {
+    color: var(--burnt-deep);
+  }
+
+  .post-body :global(strong) {
+    color: var(--charcoal);
+    font-weight: 600;
+  }
 </style>
