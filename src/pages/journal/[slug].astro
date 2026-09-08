@@ -97,6 +97,13 @@ const { Content } = await post.render();
     font-weight: 600;
   }
 
+  .post-body :global(p a),
+  .post-body :global(li a) {
+    color: var(--burnt-deep);
+    text-decoration-color: currentColor;
+    text-underline-offset: 2px;
+  }
+
   .post-body :global(figure.post-photo) {
     margin: 2.5rem 0;
   }

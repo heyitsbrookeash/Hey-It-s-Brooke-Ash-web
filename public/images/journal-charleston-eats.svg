@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100">
+  <defs>
+    <linearGradient id="g-journal-charleston-eats" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D9B36C" />
+      <stop offset="1" stop-color="#A6793D" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#g-journal-charleston-eats)" />
+  <rect x="446" y="0" width="8" height="1100" fill="#20231B" opacity="0.04" transform="rotate(101 450 550)" /><rect x="447" y="0" width="11" height="1100" fill="#20231B" opacity="0.04" transform="rotate(101 450 550)" /><rect x="448" y="0" width="14" height="1100" fill="#20231B" opacity="0.04" transform="rotate(101 450 550)" /><rect x="449" y="0" width="17" height="1100" fill="#20231B" opacity="0.04" transform="rotate(101 450 550)" /><rect x="450" y="0" width="20" height="1100" fill="#20231B" opacity="0.04" transform="rotate(101 450 550)" />
+  <rect width="900" height="1100" fill="#20231B" opacity="0.06" />
+
+  <text x="450" y="550" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="38" fill="#FBF7EF" opacity="0.95">shrimp, grits, one perfect biscuit</text>
+  <text x="450" y="613" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" letter-spacing="1.5" fill="#FBF7EF" opacity="0.8">CHARLESTON EATS</text>
+</svg>

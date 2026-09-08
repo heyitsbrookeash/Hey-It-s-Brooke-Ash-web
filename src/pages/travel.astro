@@ -9,7 +9,12 @@ const regions = [
     heading: "Pacific Northwest",
     items: [
       { src: "/images/travel-pnw-1.svg", name: "Leavenworth", caption: "a Bavarian village two hours from home" },
-      { src: "/images/travel-pnw-2.svg", name: "Olympic National Park", caption: "rainforest, coast, and mountains in one trip" },
+      {
+        src: "/images/travel-pnw-2.svg",
+        name: "Olympic National Park",
+        caption: "rainforest, coast, and mountains in one trip",
+        href: "/journal/olympic-national-forest-cabin",
+      },
       { src: "/images/travel-pnw-3.svg", name: "Portland", caption: "the food-cart trip that never disappoints" },
     ],
   },
@@ -19,6 +24,18 @@ const regions = [
       { src: "/images/travel-us-1.svg", name: "Savannah", caption: "spanish moss and a very good long weekend" },
       { src: "/images/travel-us-2.svg", name: "Austin", caption: "breakfast tacos, non-negotiable" },
       { src: "/images/travel-us-3.svg", name: "Palm Springs", caption: "a January trip that fixed my whole mood" },
+      {
+        src: "/images/travel-us-4.svg",
+        name: "Charleston",
+        caption: "spanish moss, horse carriages, one perfect biscuit",
+        href: "/journal/charleston-trip",
+      },
+      {
+        src: "/images/travel-us-5.svg",
+        name: "The Florida Keys",
+        caption: "back in my home state, barely recognized it",
+        href: "/journal/keys-fl-trip",
+      },
     ],
   },
   {
@@ -49,7 +66,7 @@ const itineraries = [
     src: "/images/itinerary-london.svg",
     title: "Four days in London",
     copy: "Markets, museums, and a pub every single night, paced so you actually get to rest.",
-    href: "#",
+    href: "/journal/london-hostel-review",
   },
   {
     src: "/images/itinerary-st-augustine.svg",
@@ -61,7 +78,7 @@ const itineraries = [
     src: "/images/itinerary-new-york.svg",
     title: "Three days in New York",
     copy: "A first-timer's pace: the classics, the neighborhoods locals actually love, and zero wasted subway rides.",
-    href: "#",
+    href: "/journal/new-york-city-itinerary",
   },
 ];
 ---
@@ -99,9 +116,18 @@ const itineraries = [
           <div class="region">
             <h3 class="region-heading">{region.heading}</h3>
             <div class="grid grid-3">
-              {region.items.map((item, i) => (
-                <Polaroid src={item.src} alt={item.name} caption={`${item.name} — ${item.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
-              ))}
+              {region.items.map((item, i) => {
+                const photo = (
+                  <Polaroid src={item.src} alt={item.name} caption={`${item.name} — ${item.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
+                );
+                return item.href ? (
+                  <a href={item.href} class="region-link">
+                    {photo}
+                  </a>
+                ) : (
+                  photo
+                );
+              })}
             </div>
           </div>
         ))
@@ -184,6 +210,17 @@ const itineraries = [
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--line);
+  }
+
+  .region-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+
+  .region-link:hover {
+    transform: translateY(-3px);
   }
 
   .hotel-list {

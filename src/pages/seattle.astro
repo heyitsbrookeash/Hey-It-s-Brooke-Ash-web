@@ -20,6 +20,18 @@ const things = [
   { src: "/images/things-4.svg", name: "Fremont Troll", caption: "five minutes, fully worth it" },
   { src: "/images/things-5.svg", name: "Gas Works Park", caption: "best sunset picnic spot, contested but true" },
   { src: "/images/things-6.svg", name: "Ballard Locks", caption: "boats, sea lions, a nice slow afternoon" },
+  {
+    src: "/images/things-7.svg",
+    name: "Wild Haus Sauna",
+    caption: "heat, cold plunge, repeat",
+    href: "/journal/wild-haus-sauna",
+  },
+  {
+    src: "/images/things-8.svg",
+    name: "Float Seattle",
+    caption: "an hour of total, weightless quiet",
+    href: "/journal/float-seattle",
+  },
 ];
 
 const events = [
@@ -59,7 +71,12 @@ const cations = {
   ],
   vacation: [
     { src: "/images/cation-vac-1.svg", title: "Long weekend in Portland", copy: "Food carts, bookstores, and a much slower pace than Seattle." },
-    { src: "/images/cation-vac-2.svg", title: "A week in Olympic National Park", copy: "Rainforest, coastline, and mountains in one trip." },
+    {
+      src: "/images/cation-vac-2.svg",
+      title: "A week in Olympic National Park",
+      copy: "Rainforest, coastline, and mountains in one trip.",
+      href: "/journal/olympic-national-forest-cabin",
+    },
     { src: "/images/cation-vac-3.svg", title: "Ten days in Amsterdam", copy: "The full itinerary is on the Travel page." },
   ],
 };
@@ -158,9 +175,18 @@ const cations = {
 
         <div role="tabpanel" data-tab-panel="things-to-do" id="panel-things" aria-labelledby="tab-things" class="grid grid-3 tab-panel" hidden>
           {
-            things.map((t, i) => (
-              <Polaroid src={t.src} alt={t.name} caption={`${t.name} — ${t.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
-            ))
+            things.map((t, i) => {
+              const photo = (
+                <Polaroid src={t.src} alt={t.name} caption={`${t.name} — ${t.caption}`} tilt={((i % 4) + 1) as 1 | 2 | 3 | 4} />
+              );
+              return t.href ? (
+                <a href={t.href} class="region-link">
+                  {photo}
+                </a>
+              ) : (
+                photo
+              );
+            })
           }
         </div>
 
@@ -195,15 +221,18 @@ const cations = {
               ))}
             </div>
             <div role="tabpanel" data-tab-panel="vacation" id="panel-vac" aria-labelledby="tab-vac" class="grid grid-3 tab-panel" hidden>
-              {cations.vacation.map((c) => (
-                <div class="card cation-card">
-                  <img src={c.src} alt={c.title} loading="lazy" />
-                  <div class="cation-copy">
-                    <h3>{c.title}</h3>
-                    <p>{c.copy}</p>
-                  </div>
-                </div>
-              ))}
+              {cations.vacation.map((c) => {
+                const Tag = c.href ? "a" : "div";
+                return (
+                  <Tag class="card cation-card" {...(c.href ? { href: c.href } : {})}>
+                    <img src={c.src} alt={c.title} loading="lazy" />
+                    <div class="cation-copy">
+                      <h3>{c.title}</h3>
+                      <p>{c.copy}</p>
+                    </div>
+                  </Tag>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -257,6 +286,17 @@ const cations = {
 
   .tablist-sub {
     margin-bottom: 2rem;
+  }
+
+  .region-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+
+  .region-link:hover {
+    transform: translateY(-3px);
   }
 
   .cations-tabs {
@@ -330,8 +370,11 @@ const cations = {
   }
 
   .cation-card {
+    display: block;
     margin: 0;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
   }
 
   .cation-card img {
