@@ -10,6 +10,7 @@ export const primaryNav: NavLink[] = [
   { label: "About", href: "/about" },
   { label: "Work with me", href: "/work-with-me" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Links", href: "/links" },
 ];
 
 export const menuGroups: { heading: string; links: NavLink[] }[] = [
@@ -42,6 +43,7 @@ export const menuGroups: { heading: string; links: NavLink[] }[] = [
     links: [
       { label: "Work with me", href: "/work-with-me" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "Links", href: "/links" },
       { label: "Home", href: "/" },
     ],
   },

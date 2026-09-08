@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Newsletter from "../components/Newsletter.astro";
+import Sticker from "../components/Sticker.astro";
+import { socialLinks } from "../lib/nav";
+
+const links = [
+  ...socialLinks.map((s) => ({
+    label: s.label,
+    href: s.href,
+    copy:
+      s.label === "Instagram"
+        ? "Daily-ish photos from Seattle and wherever I've flown to."
+        : s.label === "Pinterest"
+          ? "Every itinerary and packing list, pinned and organized by trip."
+          : "Short-form video, mostly food and travel, occasionally chaos.",
+    external: true,
+  })),
+  {
+    label: "YouTube",
+    href: "#",
+    copy: "New videos are on the way, this will point there once they're live.",
+    external: true,
+  },
+  {
+    label: "Read the journal",
+    href: "/journal",
+    copy: "Every post I've written, filterable by Seattle, travel, or journal entries.",
+    external: false,
+  },
+  {
+    label: "Work with me",
+    href: "/work-with-me",
+    copy: "Past partnerships, audience numbers, and how to reach me.",
+    external: false,
+  },
+  {
+    label: "Download the media kit",
+    href: "/media-kit.pdf",
+    copy: "Audience demographics, platform breakdowns, and rates, all in one PDF.",
+    external: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Links"
+  description="Every place to find Hey It's Brooke Ash: Instagram, TikTok, Pinterest, the journal, and how to work together."
+  page="links"
+>
+  <section class="section-sm links-hero">
+    <div class="wrap links-hero-inner">
+      <Sticker kind="pin" class="links-pin" rotate={-8} size={86} />
+      <span class="eyebrow"><span class="nav-dot"></span> Links</span>
+      <h1 class="section-title">Everywhere else you can find me.</h1>
+      <p class="section-sub">
+        One page, all the links, so you don't have to go digging through a caption for the good stuff.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page-header-photo">
+    <span class="tape tape-left"></span>
+    <img src="/images/header-links.svg" alt="A corkboard of pinned links and photos" />
+  </div>
+
+  <section class="section-sm link-list-section">
+    <div class="wrap link-list">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="link-row"
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noreferrer noopener" : undefined}
+          >
+            <div class="link-row-copy">
+              <h3>{link.label}</h3>
+              <p>{link.copy}</p>
+            </div>
+            <span class="link-row-arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>
+
+<style>
+  .links-hero-inner {
+    position: relative;
+    max-width: 640px;
+  }
+
+  .links-hero-inner :global(.links-pin) {
+    top: -1.5rem;
+    right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .links-hero-inner :global(.links-pin) {
+      display: none;
+    }
+  }
+
+  .link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 720px;
+  }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .link-row:hover {
+    background: var(--cream);
+    transform: translateX(4px);
+  }
+
+  .link-row-copy h3 {
+    font-size: 1.25rem;
+  }
+
+  .link-row-copy p {
+    margin-top: 0.4rem;
+    font-size: 0.88rem;
+    opacity: 0.8;
+  }
+
+  .link-row-arrow {
+    flex: none;
+    font-size: 1.3rem;
+    color: var(--burnt-deep);
+    transition: transform 0.15s ease;
+  }
+
+  .link-row:hover .link-row-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 560px) {
+    .link-row {
+      padding: 1.25rem;
+    }
+  }
+</style>

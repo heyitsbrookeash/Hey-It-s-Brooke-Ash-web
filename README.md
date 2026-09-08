@@ -46,8 +46,8 @@ Every photo on the site right now is a generated SVG placeholder in the site's c
 placeholder. Swap both out before launch.
 
 The "How I pack for a long weekend" journal post (`src/content/journal/how-i-pack-for-a-long-weekend.md`)
-has a YouTube video placeholder with `href="#"` — replace it with the real video (or channel) URL once
-it's live.
+and the Links page (`src/pages/links.astro`) both have a YouTube placeholder with `href="#"` — replace
+both with the real video/channel URL once it's live.
 
 ## Design system
 

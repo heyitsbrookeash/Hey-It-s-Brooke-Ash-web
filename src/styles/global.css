@@ -40,6 +40,7 @@ body[data-page="journal"] { --stripe: rgba(196, 142, 124, 0.3); }
 body[data-page="about"] { --stripe: rgba(200, 120, 96, 0.24); }
 body[data-page="work-with-me"] { --stripe: rgba(140, 152, 148, 0.28); }
 body[data-page="portfolio"] { --stripe: rgba(168, 132, 140, 0.28); }
+body[data-page="links"] { --stripe: rgba(150, 165, 195, 0.3); }
 
 *,
 *::before,
