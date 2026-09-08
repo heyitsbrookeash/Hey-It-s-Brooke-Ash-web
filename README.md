@@ -45,6 +45,10 @@ Every photo on the site right now is a generated SVG placeholder in the site's c
 `public/images/`), standing in for real photography. The media kit PDF at `public/media-kit.pdf` is also a
 placeholder. Swap both out before launch.
 
+The "How I pack for a long weekend" journal post (`src/content/journal/how-i-pack-for-a-long-weekend.md`)
+has a YouTube video placeholder with `href="#"` — replace it with the real video (or channel) URL once
+it's live.
+
 ## Design system
 
 Tokens, the polaroid/tape/sticker motifs, and the "no shadows, no rounded corners" rule all live in

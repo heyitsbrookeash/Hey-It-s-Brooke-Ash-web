@@ -12,6 +12,11 @@ For a long time my packing method was "guess, panic, overpack." I've since built
 
 The rule that changed everything: two pairs of shoes, max, and one of them is on my feet at the airport. Everything else gets picked by asking whether it goes with at least two other things already in the bag. If it's a one-outfit wonder, it stays home, no matter how good it looked on the hanger.
 
+<figure class="post-photo">
+  <img src="/images/journal-pack-laid-out.svg" alt="Everything laid out on the bed before it goes into the carry-on" loading="lazy" />
+  <figcaption>everything, laid out, before it goes anywhere near the bag</figcaption>
+</figure>
+
 ## The system
 
 It's less a checklist and more a set of questions I ask myself while I'm laying everything out on the bed:
@@ -44,5 +49,18 @@ I lay everything out before it goes in the bag, not after. Seeing it all at once
 **Extras**
 - A spare tote, packed flat, empty until the flight home
 - One "nice enough for dinner" outfit that isn't precious about getting wrinkled in transit
+
+<figure class="post-photo">
+  <img src="/images/journal-pack-carryon-closed.svg" alt="A zipped carry-on suitcase, packed and ready by the door" loading="lazy" />
+  <figcaption>zipped, no sitting on it required</figcaption>
+</figure>
+
+<figure class="post-video-figure">
+  <a href="#" class="post-video">
+    <img src="/images/journal-pack-video-thumb.svg" alt="Watch how I pack a carry-on in real time on YouTube" loading="lazy" />
+    <span class="play-badge" aria-hidden="true">&#9658;</span>
+  </a>
+  <figcaption>watch the full pack on YouTube</figcaption>
+</figure>
 
 That's the whole system. It's not glamorous, but it means I've stopped losing twenty minutes at the airport rearranging a bag that's zipped shut by sheer force. Fewer shoes, more outfits that talk to each other, and always, always a spare tote for the flight home.
