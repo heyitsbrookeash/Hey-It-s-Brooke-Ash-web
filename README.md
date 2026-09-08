@@ -47,7 +47,8 @@ placeholder. Swap both out before launch.
 
 The "How I pack for a long weekend" journal post (`src/content/journal/how-i-pack-for-a-long-weekend.md`)
 and the Links page (`src/pages/links.astro`) both have a YouTube placeholder with `href="#"` — replace
-both with the real video/channel URL once it's live.
+both with the real video/channel URL once it's live. The Links page also has a "Shop my closet"
+placeholder (`href="#"`) waiting on a real storefront/affiliate link.
 
 ## Design system
 
