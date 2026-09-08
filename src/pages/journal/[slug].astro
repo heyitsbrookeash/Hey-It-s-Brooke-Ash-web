@@ -17,7 +17,7 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BaseLayout title={post.data.title} description={post.data.excerpt}>
+<BaseLayout title={post.data.title} description={post.data.excerpt} page="journal">
   <article class="post section-sm">
     <div class="wrap post-head">
       <a href="/journal" class="cta-link">Back to journal</a>

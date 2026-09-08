@@ -31,6 +31,16 @@
   }
 }
 
+/* Each page gets its own stripe tint, like different colored paper stock
+   bound into the same scrapbook, so a reader can feel the page change
+   without the site losing its shared materials (cream, paper, ink, fonts). */
+body[data-page="travel"] { --stripe: rgba(199, 168, 108, 0.32); }
+body[data-page="seattle"] { --stripe: rgba(122, 143, 107, 0.36); }
+body[data-page="journal"] { --stripe: rgba(196, 142, 124, 0.3); }
+body[data-page="about"] { --stripe: rgba(200, 120, 96, 0.24); }
+body[data-page="work-with-me"] { --stripe: rgba(140, 152, 148, 0.28); }
+body[data-page="portfolio"] { --stripe: rgba(168, 132, 140, 0.28); }
+
 *,
 *::before,
 *::after {
